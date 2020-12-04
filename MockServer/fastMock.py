@@ -1,6 +1,7 @@
 from japronto import Application
-import etcd3, json, sys
-import mysqlConnect
+import  json, sys
+from MockServer import mysqlConnect
+
 
 def handler(request):
     # print(str(res[request.path]))
