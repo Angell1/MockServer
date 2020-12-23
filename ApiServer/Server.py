@@ -21,13 +21,19 @@ def infos():
         data.append(d)
     if request.method == 'POST':
         print('post')
+    page = 0
+    limit = 10
     if request.method == 'GET':
         info = request.values
+        print(info)
         limit = info.get('limit', 10)  # 每页显示的条数
-        offset = info.get('offset', 0)  # 分片数，(页码-1)*limit，它表示一段数据的起点
+        page = info.get('page', 0)  # 分片数，(页码-1)*limit，它表示一段数据的起点
         print('get', limit)
-    print('get  offset', offset)
-    return jsonify({'total': len(data), 'rows': data[int(offset):(int(offset) + int(limit))]})
+    print('get  page', page)
+    if page == 'NaN':
+        page = 0
+    print(data[int(page):(int(page) + int(limit))])
+    return jsonify({'total': len(data), 'rows': data[int(page):(int(page) + int(limit))]})
     # 注意total与rows是必须的两个参数，名字不能写错，total是数据的总长度，rows是每页要显示的数据,它是一个列表
     # 前端根本不需要指定total和rows这俩参数，他们已经封装在了bootstrap table里了
 
